@@ -1,0 +1,49 @@
+#!/bin/bash
+# Copyright (C) 2016 by Dodlaz
+
+BOLD="\e[1m"
+NORMAL="\e[21m"
+GREEN="\e[32m"
+RED="\e[31m"
+DEFAULT="\e[39m"
+
+if [ "$#" -ne 1 ]; then
+    echo -e "extract ${GREEN}FILE${DEFAULT}.[\
+${GREEN}tar.bz2${DEFAULT}|\
+${GREEN}tar.gz${DEFAULT}|\
+${GREEN}tar.xz${DEFAULT}|\
+${GREEN}bz2${DEFAULT}|\
+${GREEN}rar${DEFAULT}|\
+${GREEN}gz${DEFAULT}|\
+${GREEN}tar${DEFAULT}|\
+${GREEN}tbz2${DEFAULT}|\
+${GREEN}tgz${DEFAULT}|\
+${GREEN}zip${DEFAULT}|\
+${GREEN}Z${DEFAULT}|\
+${GREEN}7z${DEFAULT}]"
+elif [ -f $1 ] ; then
+    case $1 in
+        *.tar.bz2) tar xvjf   $1 ;;
+        *.tar.gz)  tar xvzf   $1 ;;
+	*.tar.xz)  tar Jxvf   $1 ;; 
+        *.bz2)     bunzip2    $1 ;;
+        *.rar)     rar x      $1 ;;
+        *.gz)      gunzip     $1 ;;
+        *.tar)     tar xvf    $1 ;;
+        *.tbz2)    tar xvjf   $1 ;;
+        *.tgz)     tar xvzf   $1 ;;
+        *.zip)     unzip      $1 ;;
+        *.Z)       uncompress $1 ;;
+        *.7z)      7z x       $1 ;;
+        *)         echo -e "${RED}Error${DEFAULT}: Don't know how to extract ${BOLD}'${1}'${NORMAL}." 1>&2 && exit 1 ;;
+    esac
+    
+    read -r -p $'\e[31mDelete\e[39m the compressed file? \e[1m[Y/N]\e[39m ' response
+    response=${response,,}    # tolower
+    if [[ $response =~ ^([Yy]es|YES|[Yy])$ ]]; then
+        echo "rm '$1'"
+        rm $1
+    fi
+else
+    echo -e "${RED}Error${DEFAULT}: ${BOLD}'${1}'${NORMAL} is not a valid file or folder."
+fi

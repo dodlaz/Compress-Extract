@@ -1,0 +1,48 @@
+.\" Copyright (C) 2016 by Dodlaz
+.TH COMPRESS 1 "2016" Linux "User Manuals"
+.SH NAME
+compress \- compress files and directorys
+
+.SH SYNOPSIS
+.B compress [
+.I FILE
+.B |
+.I DIRECTORY
+.B ] NEWFILE.[
+.I tar
+.B |
+.I tar.gz
+.B |
+.I tar.bz2
+.B |
+.I zip
+.B |
+.I rar
+.B ]
+
+
+.SH DESCRIPTION
+.BR compress
+runs
+.B tar(1), zip(1)
+or
+.B rar(1)
+to compress the files.
+
+.SH EXAMPLES
+create a tar.gz file containing the images directory
+.RS
+compress Images/ images.tar.gz
+.RE
+create a zip file containing the list.txt file
+.RS
+compress list.txt images.zip
+.RE
+
+.SH AUTHOR
+Dodlaz
+
+.SH "SEE ALSO"
+.BR tar (1),
+.BR zip (1),
+.BR rar (1)
