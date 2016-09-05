@@ -1,9 +1,0 @@
-Package: compress
-Version: 0.2
-Architecture: all
-Maintainer: Arvid Karlsson <arvid.karlsson94@gmail.com>
-Installed-Size: 4
-Depends: tar, zip, rar
-Section: cli
-Priority: optional
-Description: Helps compress files in the terminal and extract compressd files.
