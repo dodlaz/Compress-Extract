@@ -23,27 +23,27 @@ ${GREEN}Z${DEFAULT}|\
 ${GREEN}7z${DEFAULT}]"
 elif [ -f $1 ] ; then
     case $1 in
-        *.tar.bz2) tar xvjf    $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: tar xvjf $1"   && exit ;;
-        *.tar.gz)  tar xvzf    $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: tar xvzf $1"   && exit ;;
-	*.tar.xz)  tar Jxvf    $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: tar Jxvf $1"   && exit ;; 
-        *.bz2)     bunzip2     $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: bunzip2 $1"    && exit ;;
-        *.rar)     unrar x     $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: unrar x $1"    && exit ;;
-        *.gz)      gunzip      $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: gunzip $1"     && exit ;;
-        *.tar)     tar xvf     $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: tar xvf $1"    && exit ;;
-        *.tbz2)    tar xvjf    $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: tar xvjf $1"   && exit ;;
-        *.tgz)     tar xvzf    $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: tar xvzf $1"   && exit ;;
-        *.zip)     unzip       $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: unzip $1"      && exit ;;
-        *.Z)       uncompress  $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: uncompress $1" && exit ;;
-        *.7z)      7z x        $1 2>/dev/null || echo -e "${RED}Error running${DEFAULT}: 7z x $1"       && exit ;;
-        *)         echo "don't know how to extract '$1'..."       && exit ;;
+        *.tar.bz2) tar xvjf   $1 ;;
+        *.tar.gz)  tar xvzf   $1 ;;
+	*.tar.xz)  tar Jxvf   $1 ;; 
+        *.bz2)     bunzip2    $1 ;;
+        *.rar)     rar x      $1 ;;
+        *.gz)      gunzip     $1 ;;
+        *.tar)     tar xvf    $1 ;;
+        *.tbz2)    tar xvjf   $1 ;;
+        *.tgz)     tar xvzf   $1 ;;
+        *.zip)     unzip      $1 ;;
+        *.Z)       uncompress $1 ;;
+        *.7z)      7z x       $1 ;;
+        *)         echo -e "${RED}Error${DEFAULT}: Don't know how to extract ${BOLD}'${1}'${NORMAL}." 1>&2 && exit 1 ;;
     esac
     
-    read -r -p "Delete the compressed file? [Y/N] " response
+    read -r -p $'\e[31mDelete\e[39m the compressed file? \e[1m[Y/N]\e[39m ' response
     response=${response,,}    # tolower
     if [[ $response =~ ^([Yy]es|YES|[Yy])$ ]]; then
         echo "rm '$1'"
         rm $1
     fi
 else
-    echo -e "${RED}Error${DEFAULT}: ${BOLD}'${1}'${NORMAL} is not a valid file or folder"
+    echo -e "${RED}Error${DEFAULT}: ${BOLD}'${1}'${NORMAL} is not a valid file or folder."
 fi
